@@ -1,6 +1,7 @@
 package com.enjoy.controller;
 
 import com.enjoy.vo.Product;
+import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -40,6 +41,13 @@ public class ConsumerProductController {
 
     @RequestMapping("/product/list")
     public  Object listProduct() {
+        //服务提供方的实例信息
+        //【*** ServiceInstance ***】host = 10.43.22.21、port = 8080、serviceId = MICROCLOUD-PROVIDER-PRODUCT
+        ServiceInstance serviceInstance = this.loadBalancerClient.choose("MICROCLOUD-PROVIDER-PRODUCT") ;
+        System.out.println(
+                "【*** ServiceInstance ***】host = " + serviceInstance.getHost()
+                        + "、port = " + serviceInstance.getPort()
+                        + "、serviceId = " + serviceInstance.getServiceId());
         List<Product> list = restTemplate.exchange(PRODUCT_LIST_URL,
                 HttpMethod.GET,new HttpEntity<Object>(httpHeaders), List.class).getBody();
         return  list;

@@ -1,5 +1,6 @@
 package com.enjoy.config;
 
+import com.netflix.loadbalancer.IRule;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,4 +29,9 @@ public class RestConfig {
         headers.set("Authorization", authHeader);
         return headers;
     }
+    /*//负载策略
+    @Bean
+    public IRule ribbonRule() { // 其中IRule就是所有规则的标准
+        return new com.netflix.loadbalancer.RandomRule(); // 随机的访问策略
+    }*/
 }
