@@ -13,7 +13,7 @@ import java.util.Base64;
 public class RestConfig {
 
     @Bean
-    @LoadBalanced //负载注解
+//    @LoadBalanced //负载注解
     public RestTemplate restTemplate(){
         return new RestTemplate();
     }

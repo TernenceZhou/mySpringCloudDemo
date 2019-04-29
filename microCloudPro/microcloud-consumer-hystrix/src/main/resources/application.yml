@@ -1,0 +1,26 @@
+server:
+  port: 80
+
+#前面我们已经知道Feign之中最核心的作用就是将Rest服务的信息转化为接口，这其中还有其他的一些地方应该要考虑，比如：数据的压缩
+#Rest协议更多的传输的是文本，JSON或者XML，如果用户发送的请求很大，这个时候有必要对数据进行压缩处理，好在feign本身就提供了压缩的支持
+feign:
+  hystrix:
+    enabled: true #熔断
+  compression:
+    request:
+      enabled: true
+      mime-types: # 可以被压缩的类型
+      - text/xml
+      - application/xml
+      - application/json
+      min-request-size: 2048 # 超过2048的字节进行压缩
+
+logging:
+  level:
+    com.enjoy.service: DEBUG
+
+eureka:
+  client:
+    register-with-eureka: false #当前的客户端是否应该注册到erueka中
+    service-url:
+      defaultZone: http://admin:enjoy@eureka1:7001/eureka,http://admin:enjoy@eureka2:7002/eureka,http://admin:enjoy@eureka3:7003/eureka

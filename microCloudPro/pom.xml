@@ -11,6 +11,9 @@
     <modules>
         <module>microcloud-api</module>
         <module>microcloud-consumer</module>
+        <module>microcloud-consumer-ribbon</module>
+        <module>microcloud-consumer-feign</module>
+        <module>microcloud-consumer-hystrix</module>
         <module>microcloud-provider-product</module>
         <module>microcloud-security</module>
         <module>microcloud-eureka</module>
@@ -18,6 +21,8 @@
         <module>microcloud-eureka3</module>
         <module>microcloud-provider-product2</module>
         <module>microcloud-provider-product3</module>
+        <module>microcloud-provider-product-hystrix</module>
+        <module>microcloud-service</module>
     </modules>
 
     <properties>

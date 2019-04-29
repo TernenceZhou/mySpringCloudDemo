@@ -1,6 +1,8 @@
 package com.enjoy.controller;
 
+import com.enjoy.service.IProductClientService;
 import com.enjoy.vo.Product;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.http.HttpEntity;
@@ -17,48 +19,24 @@ import java.util.List;
 @RequestMapping("/consumer")
 public class ConsumerProductController {
 
-    /*public static final String PRODUCT_GET_URL = "http://localhost:8080/prodcut/get/";
-    public static final String PRODUCT_LIST_URL="http://localhost:8080/prodcut/list/";
-    public static final String PRODUCT_ADD_URL = "http://localhost:8080/prodcut/add/";*/
-    public static final String PRODUCT_GET_URL = "http://MICROCLOUD-PROVIDER-PRODUCT/product/get/";
-    public static final String PRODUCT_LIST_URL="http://MICROCLOUD-PROVIDER-PRODUCT/product/list/";
-    public static final String PRODUCT_ADD_URL = "http://MICROCLOUD-PROVIDER-PRODUCT/product/add/";
-    @Resource
-    private RestTemplate restTemplate;
-
-    @Resource
-    private HttpHeaders httpHeaders;
-
-    @Resource
-    private LoadBalancerClient loadBalancerClient;
+   @Autowired
+   private IProductClientService productClientService;
 
     @RequestMapping("/product/get")
     public Object getProduct(long id) {
-        Product product = restTemplate.exchange(PRODUCT_GET_URL + id,
-                HttpMethod.GET,new HttpEntity<Object>(httpHeaders), Product.class).getBody();
-        return  product;
+        return  productClientService.getProduct(id);
     }
 
     @RequestMapping("/product/list")
     public  Object listProduct() {
-        //服务提供方的实例信息
-        //【*** ServiceInstance ***】host = 10.43.22.21、port = 8080、serviceId = MICROCLOUD-PROVIDER-PRODUCT
-        ServiceInstance serviceInstance = this.loadBalancerClient.choose("MICROCLOUD-PROVIDER-PRODUCT") ;
-        System.out.println(
-                "【*** ServiceInstance ***】host = " + serviceInstance.getHost()
-                        + "、port = " + serviceInstance.getPort()
-                        + "、serviceId = " + serviceInstance.getServiceId());
-        List<Product> list = restTemplate.exchange(PRODUCT_LIST_URL,
-                HttpMethod.GET,new HttpEntity<Object>(httpHeaders), List.class).getBody();
-        return  list;
+        return productClientService.listProduct();
     }
 
     @RequestMapping("/product/add")
     public Object addPorduct(Product product) {
-        Boolean result = restTemplate.exchange(PRODUCT_ADD_URL,
-                HttpMethod.POST,new HttpEntity<Object>(product,httpHeaders), Boolean.class).getBody();
-        return  result;
+        return  productClientService.addPorduct(product);
     }
+
 
     public static void main(String[] args) {
         int arr[]= {5,2,1,3,6};
