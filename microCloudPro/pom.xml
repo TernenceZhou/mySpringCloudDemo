@@ -23,6 +23,9 @@
         <module>microcloud-provider-product3</module>
         <module>microcloud-provider-product-hystrix</module>
         <module>microcloud-service</module>
+        <module>microcloud-zuul-gateway</module>
+        <module>microcloud-consumer-hystrix-dashboard</module>
+        <module>microcloud-provider-user-hystrix</module>
     </modules>
 
     <properties>
@@ -41,7 +44,11 @@
             <dependency> <!-- SpringCloud离不开SpringBoot，所以必须要配置此依赖包 -->
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
-                <version>2.1.2.RELEASE</version>
+                <!--如果为2.1.2 驱动配置为driver-class-name: com.mysql.jdbc.Driver # 配置MySQL的驱动程序类-->
+                <!--<version>2.1.2.RELEASE</version>-->
+                <!--发现zuulApp启动报错，其实这是因为zuul目前对springboot2.1.2支持并不好，这也是zuul最近一直被人诟病的地方-->
+                <!--如果为2.0.7 驱动配置为driver-class-name: com.mysql.jdbc.Driver # 配置MySQL的驱动程序类-->
+                <version>2.0.7.RELEASE</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
