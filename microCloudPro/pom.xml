@@ -26,6 +26,9 @@
         <module>microcloud-zuul-gateway</module>
         <module>microcloud-consumer-hystrix-dashboard</module>
         <module>microcloud-provider-user-hystrix</module>
+        <module>microcloud-config</module>
+        <module>microcloud-config-client</module>
+        <module>microcloud-config-git</module>
     </modules>
 
     <properties>
@@ -84,6 +87,7 @@
                 <filtering>true</filtering>
             </resource>
         </resources>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -104,4 +108,31 @@
             </plugin>
         </plugins>
     </build>
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <project.name.deploy>micro-pro</project.name.deploy>
+                <profile.name>dev</profile.name>
+            </properties>
+        </profile>
+        <profile>
+            <id>devtest</id>
+            <properties>
+                <project.name.deploy>micro-pro</project.name.deploy>
+                <profile.name>devtest</profile.name>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>prd</id>
+            <properties>
+                <project.name.deploy>micro-pro</project.name.deploy>
+                <profile.name>prd</profile.name>
+            </properties>
+        </profile>
+
+    </profiles>
 </project>

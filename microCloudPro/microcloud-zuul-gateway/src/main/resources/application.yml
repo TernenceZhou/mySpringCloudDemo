@@ -4,13 +4,23 @@ server:
 spring:
   application:
     name: microcloud-zuul-gateway
-
+#  security:
+#    user:
+#      name: admin
+#      password: enjoy
+#      再访问http://localhost:9501/enjoy-api/users-proxy/users/get/1
+#      这个时候就需要输入用户名密码了
 
 eureka:
   client:
-    register-with-eureka: false
+    register-with-eureka: true
     service-url:
       defaultZone: http://admin:enjoy@eureka1:7001/eureka,http://admin:enjoy@eureka2:7002/eureka,http://admin:enjoy@eureka3:7003/eureka
+  instance: #放到注册中心 因为我们feign 访问Zuul
+    instance-id: microcloud-zuul-gateway
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 2 # 设置心跳的时间间隔（默认是30秒）
+    lease-expiration-duration-in-seconds: 5 # 如果现在超过了5秒的间隔（默认是90秒）
 zuul:
   routes:
     #microcloud-provider-users: /users-proxy/**
@@ -20,7 +30,7 @@ zuul:
     users2:
       path: /users2-proxy/**
       url: http://localhost:8090/
-    product:
+    product: #所有的微服务一点都有增加的认证信息，那么就必须在其访问之前追加认证的头部操作，这样的功能需要通过zuul的过去操作完成。
       path: /product-proxy/**
       serviceId: microcloud-provider-product
   ignored-services:

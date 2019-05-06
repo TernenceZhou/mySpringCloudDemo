@@ -1,19 +1,14 @@
 package com.enjoy.controller;
 
 import com.enjoy.service.IProductClientService;
+import com.enjoy.service.IZuulClientService;
 import com.enjoy.vo.Product;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.client.ServiceInstance;
-import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
-import javax.annotation.Resource;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/consumer")
@@ -21,6 +16,8 @@ public class ConsumerProductController {
 
    @Autowired
    private IProductClientService productClientService;
+    @Autowired
+    private IZuulClientService zuulClientService;
 
     @RequestMapping("/product/get")
     public Object getProduct(long id) {
@@ -37,6 +34,18 @@ public class ConsumerProductController {
         return  productClientService.addPorduct(product);
     }
 
+    /**
+     * 验证通过zuul访问
+     * @param id
+     * @return
+     */
+    @RequestMapping("/product/getProductAndUser")
+    public Object getProductAndUser(long id) {
+        Map<String,Object> result = new HashMap();
+        result.put("product",zuulClientService.getProduct(id));
+        result.put("user",zuulClientService.getUsers(id+""));
+        return  result;
+    }
 
     public static void main(String[] args) {
         int arr[]= {5,2,1,3,6};

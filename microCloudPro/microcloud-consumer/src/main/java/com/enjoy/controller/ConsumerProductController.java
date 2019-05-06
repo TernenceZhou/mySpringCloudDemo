@@ -64,8 +64,7 @@ public class ConsumerProductController {
         int arr[]= {5,2,1,3,6};
         //charu(arr, arr.length);
         //insertionSort(arr, arr.length);
-        chooseSort(arr, arr.length);
-
+        //chooseSort(arr, arr.length);
         for (int i = 0; i < arr.length; i++) {
             System.out.println(arr[i]);
         }
@@ -96,6 +95,9 @@ public class ConsumerProductController {
 
         }
     }
+
+
+
 
     public static void chooseSort(int arr[],int len){
         for (int i = 0; i < len; i++) {

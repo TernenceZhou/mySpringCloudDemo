@@ -1,0 +1,35 @@
+server:
+  port: 7101
+
+spring:
+    application:
+        name: microconfig-config
+    profiles:
+        active: dev
+    cloud:
+        config:
+            server:
+                git:
+                    search-paths: /common,{application}-git #查找git目录的规则 先找common目录， 再通过项目名称-git 查找对应的配置文件
+                    #/microcloud-config-client #/common,{application}-config
+eureka:
+  client:
+    service-url:
+      defaultZone: http://admin:enjoy@eureka1:7001/eureka,http://admin:enjoy@eureka2:7002/eureka,http://admin:enjoy@eureka3:7003/eureka
+  instance:
+    instance-id: microconfig-config
+
+
+
+
+---
+spring:
+    profiles: dev
+    cloud:
+        config:
+            server:
+                git:
+                    uri: https://github.com/TernenceZhou/microconfig.git
+
+
+

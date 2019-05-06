@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: microcloud-config-client
+  profiles:
+    active: dev
+  cloud:
+     config:
+        label: dev # 定义配置文件所在的分支
+        username: admin # 连接的用户名
+        password: enjoy # 连接的密码
+        #uri: http://localhost:7101 # SpringCloudConfig的服务地址
+        discovery:
+          enabled: true
+          service-id: microconfig-config #通过实例名称找到配置中心
+        profile: ${spring.profiles.active}
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://admin:enjoy@eureka1:7001/eureka,http://admin:enjoy@eureka2:7002/eureka,http://admin:enjoy@eureka3:7003/eureka
