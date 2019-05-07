@@ -16,6 +16,7 @@ public class ConfigClientController {
 
     @RequestMapping("/config")
     public String getConfig() {
+        System.out.println();
         return "ApplicationName = " + this.applicationName + "、EurekaServers = "
                 + this.eurekaServers+"、 datasourceName="+userName;
     }
