@@ -29,6 +29,8 @@
         <module>microcloud-config</module>
         <module>microcloud-config-client</module>
         <module>microcloud-config-git</module>
+        <module>microcloud-config-bus</module>
+        <module>microcloud-config-bus-client</module>
     </modules>
 
     <properties>

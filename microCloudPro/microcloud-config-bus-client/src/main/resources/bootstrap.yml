@@ -1,6 +1,6 @@
 spring:
   application:
-    name: microcloud-config-client
+    name: microcloud-config-client #microcloud-config-client #microcloud-config-bus-client
   profiles:
     active: dev
   cloud:
@@ -11,10 +11,16 @@ spring:
         #uri: http://localhost:7101 # SpringCloudConfig的服务地址
         discovery:
           enabled: true
-          service-id: microconfig-config #通过实例名称找到配置中心dddd
+          service-id: microcloud-config-bus #通过实例名称找到配置中心
         profile: ${spring.profiles.active}
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
 
 eureka:
   client:
     service-url:
+      register-with-eureka: false
       defaultZone: http://admin:enjoy@eureka1:7001/eureka,http://admin:enjoy@eureka2:7002/eureka,http://admin:enjoy@eureka3:7003/eureka
